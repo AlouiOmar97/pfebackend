@@ -55,6 +55,24 @@ public class User {
     this.password = password;
   }
 
+  public User(String username,String nom,String prenom, String email, String password) {
+    this.username = username;
+    this.nom=nom;
+    this.prenom=prenom;
+    this.email = email;
+    this.password = password;
+  }
+
+  public User(Long id,String email,String password,String username, String nom, String prenom) {
+    this.username = username;
+    this.id=id;
+    this.nom=nom;
+    this.prenom=prenom;
+    this.email = email;
+    this.password = password;
+  }
+
+
   public Long getId() {
     return id;
   }
@@ -109,5 +127,17 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", username='" + username + '\'' +
+            ", email='" + email + '\'' +
+            ", nom='" + nom + '\'' +
+            ", prenom='" + prenom + '\'' +
+            ", password='" + password + '\'' +
+            '}';
   }
 }

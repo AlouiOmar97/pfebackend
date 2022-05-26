@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Reclamation;
+import tn.esprit.spring.entities.Stat;
 import tn.esprit.spring.entities.User;
 import tn.esprit.spring.repository.UserRepository;
 import tn.esprit.spring.security.jwt.AuthTokenFilter;
@@ -92,5 +93,133 @@ public class ReclamationController {
         }
         iReclamationService.ajouterReclamation(reclamation);
         return reclamation;
+    }
+
+    @GetMapping(value = "/stat/etat")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatEtat() {
+
+        System.out.println("stat etat");
+        return iReclamationService.getStatByEtat();
+    }
+
+    @GetMapping(value = "/stat/departement")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatDepartement() {
+
+        System.out.println("stat departemet");
+        return iReclamationService.getStatByDepartement();
+    }
+
+    @GetMapping(value = "/stat/type")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatType() {
+
+        System.out.println("stat type");
+        return iReclamationService.getStatByType();
+    }
+
+    @GetMapping(value = "/stat/rec/today")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecToday() {
+
+        System.out.println("stat rec today");
+        return iReclamationService.getStatRecToday();
+    }
+
+    @GetMapping(value = "/stat/rec/week")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecWeek() {
+
+        System.out.println("stat rec week");
+        return iReclamationService.getStatRecWeek();
+    }
+
+    @GetMapping(value = "/stat/rec/prevweek")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecPreviousWeek() {
+
+        System.out.println("stat rec previous week");
+        return iReclamationService.getStatRecPreviousWeek();
+    }
+
+    @GetMapping(value = "/stat/rec/month")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecMonth() {
+
+        System.out.println("stat rec month");
+        return iReclamationService.getStatRecMonthGroupedByDate();
+    }
+
+
+
+    @GetMapping(value = "/stat/rec/treated/today")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecTreatedToday() {
+
+        System.out.println("stat rec treated today");
+        return iReclamationService.getStatRecTreatedToday();
+    }
+
+    @GetMapping(value = "/stat/rec/treated/week")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecTreatedWeek() {
+
+        System.out.println("stat rec treated week");
+        return iReclamationService.getStatRecTreatedWeek();
+    }
+
+    @GetMapping(value = "/stat/rec/avgres")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatAvgResTime() {
+
+        System.out.println("stat rec avg response time");
+        return iReclamationService.getStatRecAvgResTime();
+    }
+
+    @GetMapping(value = "/stat/rec/treated/agent")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecTreatedByAgent() {
+
+        System.out.println("stat rec treated by agent");
+        return iReclamationService.getStatRecTreatedByAgent();
+    }
+
+    @GetMapping(value = "/stat/rec/treated/agent/today")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecTreatedByAgentToday() {
+
+        System.out.println("stat rec treated by agent today");
+        return iReclamationService.getStatRecTreatedByAgentToday();
+    }
+
+    @GetMapping(value = "/stat/rec/treated/agent/week")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecTreatedByAgentWeek() {
+
+        System.out.println("stat rec treated by agent week");
+        return iReclamationService.getStatRecTreatedByAgentWeek();
+    }
+
+    @GetMapping(value = "/stat/rec/treated/agent/best")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatRecTreatedBestAgent() {
+
+        System.out.println("stat rec treated best agent");
+        return iReclamationService.getStatRecTreatedBestAgent();
     }
 }
