@@ -144,5 +144,18 @@ public class Reclamation implements Serializable {
         return reponsesReclamation;
     }
 
-
+    @Override
+    public String toString() {
+        return "Reclamation{" +
+                "id=" + id +
+                ", motif='" + motif + '\'' +
+                ", etat='" + etat + '\'' +
+                ", type='" + type + '\'' +
+                ", departement='" + departement + '\'' +
+                ", message='" + message + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                ", reponsesReclamation=" + reponsesReclamation +
+                '}';
+    }
 }

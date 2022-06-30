@@ -16,14 +16,22 @@ import java.util.Optional;
 public interface ReclamationRepository extends JpaRepository<Reclamation, Integer> {
     Optional<Reclamation> findByDepartement(String department);
 
+    List<Reclamation> findByUser(User user);
+
     Boolean existsByDepartement(String department);
 
 
     @Query("SELECT r.etat as critere,COUNT(r) as valeur FROM Reclamation r GROUP BY r.etat")
     public List<Object[]> getStatEtat();
 
+    @Query(value="SELECT r.etat as critere,COUNT(*) as valeur FROM `reclamation` as r where DATE(r.date)>DATE(now() - INTERVAL 7 day) GROUP BY r.etat",nativeQuery = true)
+    public List<Object[]> getStatEtatWeek();
+
     @Query("SELECT r.departement as critere,COUNT(r) as valeur FROM Reclamation r GROUP BY r.departement")
     public List<Object[]> getStatDepartement();
+
+    @Query(value="SELECT r.departement as critere,COUNT(*) as valeur FROM `reclamation` as r where DATE(r.date)>DATE(now() - INTERVAL 7 day) GROUP BY r.departement",nativeQuery = true)
+    public List<Object[]> getStatDepartementWeek();
 
     @Query("SELECT r.type as critere,COUNT(r) as valeur FROM Reclamation r GROUP BY r.type")
     public List<Object[]> getStatType();

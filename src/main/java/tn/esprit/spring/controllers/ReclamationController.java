@@ -12,6 +12,7 @@ import tn.esprit.spring.repository.UserRepository;
 import tn.esprit.spring.security.jwt.AuthTokenFilter;
 import tn.esprit.spring.security.jwt.JwtUtils;
 import tn.esprit.spring.services.IReclamationService;
+import tn.esprit.spring.services.IUserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -28,7 +29,8 @@ public class ReclamationController {
     IReclamationService iReclamationService;
     @Autowired
     UserRepository userRepository;
-
+    @Autowired
+    IUserService iUserService;
 
 
 //    @GetMapping("/all")
@@ -62,6 +64,37 @@ public class ReclamationController {
         return iReclamationService.getAllReclamations();
     }
 
+    @GetMapping("/mine")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')  or hasRole('USER')")
+    public List<Reclamation> getMyReclamations(HttpServletRequest request) {
+
+        User user1=new User();
+        Principal principal = request.getUserPrincipal();
+        Optional<User> opUser = userRepository.findByUsername(principal.getName());
+        if(opUser.isPresent()){
+            User user=opUser.get();
+            user1=user;
+
+        }
+
+        return iReclamationService.getMyReclamations(user1);
+    }
+
+    @GetMapping("/user/{userId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public List<Reclamation> getMyReclamations(@PathVariable("userId") int userId) {
+
+//        User user1=new User();
+        User user = iUserService.getUserById((userId));
+//        if(opUser.isPresent()){
+//            User user=opUser.get();
+//            user1=user;
+//
+//        }
+
+        return iReclamationService.getMyReclamations(user);
+    }
+
     @GetMapping(value = "/{idreclamation}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
@@ -91,8 +124,26 @@ public class ReclamationController {
             User user=opUser.get();
         reclamation.setUser(user);
         }
-        iReclamationService.ajouterReclamation(reclamation);
+        iReclamationService.addReclamation(reclamation);
         return reclamation;
+    }
+
+
+    @PutMapping("/update/{idreclamation}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public Reclamation updateReclamation(@PathVariable("idreclamation") int reclamationId,@RequestBody Reclamation reclamation) {
+        iReclamationService.updateReclamation(reclamation,reclamationId);
+        return reclamation;
+    }
+
+
+    @DeleteMapping("/delete/{idreclamation}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public String deleteReclamation(@PathVariable("idreclamation") int reclamationId) {
+        iReclamationService.deleteReclamation(reclamationId);
+        return "reclamation deleted!";
     }
 
     @GetMapping(value = "/stat/etat")
@@ -104,6 +155,15 @@ public class ReclamationController {
         return iReclamationService.getStatByEtat();
     }
 
+    @GetMapping(value = "/stat/etat/week")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatEtatWeek() {
+
+        System.out.println("stat etat week");
+        return iReclamationService.getStatByEtatWeek();
+    }
+
     @GetMapping(value = "/stat/departement")
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
@@ -111,6 +171,15 @@ public class ReclamationController {
 
         System.out.println("stat departemet");
         return iReclamationService.getStatByDepartement();
+    }
+
+    @GetMapping(value = "/stat/departement/week")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public List<Stat> getStatDepartementWeek() {
+
+        System.out.println("stat departemet week");
+        return iReclamationService.getStatByDepartementWeek();
     }
 
     @GetMapping(value = "/stat/type")

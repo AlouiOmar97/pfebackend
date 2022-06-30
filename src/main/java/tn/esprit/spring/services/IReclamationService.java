@@ -2,16 +2,22 @@ package tn.esprit.spring.services;
 
 import tn.esprit.spring.entities.Reclamation;
 import tn.esprit.spring.entities.Stat;
+import tn.esprit.spring.entities.User;
 
 import java.util.List;
 
 public interface IReclamationService {
 
-    public Reclamation ajouterReclamation(Reclamation reclamation);
+    public Reclamation addReclamation(Reclamation reclamation);
+    public Reclamation updateReclamation(Reclamation reclamation,int id);
+    public void deleteReclamation(int id);
     public List<Reclamation> getAllReclamations();
+    public List<Reclamation> getMyReclamations(User user);
     public Reclamation getReclamationById(int reclamationId);
     public List<Stat> getStatByEtat();
+    public List<Stat> getStatByEtatWeek();
     public List<Stat> getStatByDepartement();
+    public List<Stat> getStatByDepartementWeek();
     public List<Stat> getStatByType();
     public List<Stat> getStatRecToday();
     public List<Stat> getStatRecWeek();

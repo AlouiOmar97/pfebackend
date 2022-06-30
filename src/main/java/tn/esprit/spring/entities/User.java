@@ -1,5 +1,6 @@
 package tn.esprit.spring.entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,10 @@ public class User {
   @NotBlank
   @Size(max = 120)
   private String password;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date date;
+
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
@@ -103,6 +108,14 @@ public class User {
 
   public void setPrenom(String prenom) {
     this.prenom = prenom;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
   }
 
   public String getEmail() {

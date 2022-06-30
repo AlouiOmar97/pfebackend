@@ -3,6 +3,7 @@ package tn.esprit.spring.entities;
 public class Stat {
     private String critere;
     private String valeur;
+    private  User user;
 
     public Stat() {
     }
@@ -10,6 +11,11 @@ public class Stat {
     public Stat(String critere, String valeur) {
         this.critere = critere;
         this.valeur = valeur;
+    }
+
+    public Stat(User user, String valeur) {
+        this.valeur = valeur;
+        this.user = user;
     }
 
     public String getCritere() {
@@ -26,6 +32,14 @@ public class Stat {
 
     public void setValeur(String valeur) {
         this.valeur = valeur;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
