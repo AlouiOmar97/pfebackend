@@ -136,4 +136,16 @@ public class ChatServiceImpl implements IChatService {
 
     public Chat getChatById(int chatId) { return chatRepository.findById(chatId).get(); }
 
+    public void deleteChat(int id) {
+        try {
+            Optional<Chat> opChat=chatRepository.findById(id);
+            if (opChat.isPresent()) {
+                Chat chat1 = opChat.get();
+                chatRepository.delete(chat1);
+            }
+        } catch (Exception e) {
+            l.error("delete chat error.", e.getMessage());
+        }
+
+    }
 }

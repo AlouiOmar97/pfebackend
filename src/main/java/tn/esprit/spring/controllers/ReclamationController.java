@@ -137,7 +137,13 @@ public class ReclamationController {
         return reclamation;
     }
 
-
+    @PutMapping("/updateetat/{idreclamation}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @ResponseBody
+    public Reclamation updateReclamationEtat(@PathVariable("idreclamation") int reclamationId,@RequestBody Reclamation reclamation) {
+        iReclamationService.updateReclamationEtat(reclamation,reclamationId);
+        return reclamation;
+    }
     @DeleteMapping("/delete/{idreclamation}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody

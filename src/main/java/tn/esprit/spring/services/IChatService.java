@@ -16,6 +16,7 @@ public interface IChatService {
     public Chat ajouterChatPrive(Chat chat);
     public List<Chat> getAllChats();
     public Chat getChatById(int chatId);
+    public void deleteChat(int id);
 
 
 }

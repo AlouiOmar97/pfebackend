@@ -33,6 +33,14 @@ public class Chat implements Serializable{
 
     public Chat() {super(); }
 
+    public Chat(@NotBlank @Size(max = 5000) String message, Date date, User sender, User receiver, EStatus status) {
+        this.message = message;
+        this.date = date;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.status = status;
+    }
+
     public User getReceiver() {
         return receiver;
     }

@@ -66,6 +66,26 @@ public class Reclamation implements Serializable {
         this.type = type;
     }
 
+    public Reclamation(@NotBlank @Size(max = 1500) String motif, @NotBlank @Size(max = 50) String etat, @NotBlank @Size(max = 50) String type, @NotBlank @Size(max = 50) String departement, @NotBlank @Size(max = 5000) String message, Date date, User user) {
+        this.motif = motif;
+        this.etat = etat;
+        this.type = type;
+        this.departement = departement;
+        this.message = message;
+        this.date = date;
+        this.user = user;
+    }
+
+    public Reclamation(int id,@NotBlank @Size(max = 1500) String motif, @NotBlank @Size(max = 50) String etat, @NotBlank @Size(max = 50) String type, @NotBlank @Size(max = 50) String departement, @NotBlank @Size(max = 5000) String message, Date date, User user) {
+        this.id=id;
+        this.motif = motif;
+        this.etat = etat;
+        this.type = type;
+        this.departement = departement;
+        this.message = message;
+        this.date = date;
+        this.user = user;
+    }
     public User getUser() {
         return user;
     }

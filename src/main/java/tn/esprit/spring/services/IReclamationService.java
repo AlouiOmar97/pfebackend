@@ -10,6 +10,7 @@ public interface IReclamationService {
 
     public Reclamation addReclamation(Reclamation reclamation);
     public Reclamation updateReclamation(Reclamation reclamation,int id);
+    public Reclamation updateReclamationEtat(Reclamation reclamation,int id);
     public void deleteReclamation(int id);
     public List<Reclamation> getAllReclamations();
     public List<Reclamation> getMyReclamations(User user);

@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entities.Reclamation;
+import tn.esprit.spring.entities.ResponseReclamation;
 import tn.esprit.spring.entities.Stat;
 import tn.esprit.spring.entities.User;
 import tn.esprit.spring.repository.ReclamationRepository;
@@ -25,7 +26,6 @@ public class ReclamationServiceImpl implements IReclamationService {
     ReclamationRepository reclamationRepository;
     @Autowired
     UserRepository userRepository;
-
     public Reclamation addReclamation(Reclamation reclamation) {
         try {
             reclamation.setDate(new Date());
@@ -52,6 +52,28 @@ public class ReclamationServiceImpl implements IReclamationService {
             }
         } catch (Exception e) {
             l.error("update reclamation error.", e.getMessage());
+        }
+
+        return reclamation;
+    }
+
+    public Reclamation updateReclamationEtat(Reclamation reclamation,int id) {
+        try {
+            String etat="";
+            Optional<Reclamation> opRec=reclamationRepository.findById(id);
+            if (opRec.isPresent()){
+                Reclamation reclamation1=opRec.get();
+                if(reclamation1.getReponsesReclamation().size()==0){
+                    etat="non traitée";
+                }else{
+                   etat="traitée";
+                }
+                reclamation1.setEtat(etat);
+                reclamationRepository.save(reclamation1);
+
+            }
+        } catch (Exception e) {
+            l.error("update reclamation etat error.", e.getMessage());
         }
 
         return reclamation;

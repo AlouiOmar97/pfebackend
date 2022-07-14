@@ -37,6 +37,25 @@ public class UserServiceImpl implements IUserService {
     }
     public User getUserById(int userId) { return userRepository.findById(new Long(userId)).get(); }
 
+    public User updateUser(User user,int id) {
+        try {
+            Optional<User> optionalUser=userRepository.findById(new Long(id));
+            if (optionalUser.isPresent()){
+                User user1=optionalUser.get();
+                user1.setPrenom(user.getPrenom());
+                user1.setNom(user.getNom());
+                user1.setEmail(user.getEmail());
+                user1.setUsername(user.getUsername());
+                userRepository.save(user1);
+
+            }
+        } catch (Exception e) {
+            l.error("update user error.", e.getMessage());
+        }
+
+        return user;
+    }
+
     public void deleteUser(int id) {
         try {
             Optional<User> opUsr=userRepository.findById(new Long(id));
@@ -49,6 +68,7 @@ public class UserServiceImpl implements IUserService {
         }
 
     }
+
 
 
 }
